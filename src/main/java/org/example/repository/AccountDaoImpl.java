@@ -2,7 +2,12 @@ package org.example.repository;
 
 import org.example.model.Account;
 import org.example.util.HibernateUtil;
-import org.hibernate.*;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

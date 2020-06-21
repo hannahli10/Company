@@ -13,8 +13,8 @@ public class Account {
     private long Id;   //id
     @Column(name = "account_type")
     private String accountType;
-//    @Column (name = "balance")
-//    private Double balance;
+    @Column (name = "balance")
+    private BigDecimal balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
@@ -26,9 +26,9 @@ public class Account {
     public void setAccountType(String accountType){
         this.accountType = accountType;
     }
-//    public void setBalance(Double balance){
-//        this.balance =balance;
-//    }
+    public void setBalance(BigDecimal balance){
+        this.balance =balance;
+    }
 
     public void setEmployee(Employee employee){
         this.employee = employee;}
@@ -41,9 +41,9 @@ public class Account {
     public String getAccountType() {
         return accountType;
     }
-//    public Double getBalance() {
-//        return balance;
-//    }
+    public BigDecimal getBalance() {
+        return balance;
+    }
 
 }
 

@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public class AccountDaoTest {
@@ -18,8 +20,7 @@ public class AccountDaoTest {
         accountDao = new AccountDaoImpl();
         a1 = new Account();
         a1.setAccountType("saving account");
-//        a1.setBalance(1000.00);
-
+        a1.setBalance(BigDecimal.valueOf(1000));
 
         //User u = "12341"
         a1= accountDao.save(a1);
