@@ -21,10 +21,10 @@ public class Employee {
     @Column (name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
-    private Set<Account> accounts;
+//    @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+//    private Set<Account> accounts;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 

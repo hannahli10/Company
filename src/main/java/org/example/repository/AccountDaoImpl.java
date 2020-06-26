@@ -1,8 +1,8 @@
 package org.example.repository;
 
 import org.example.model.Account;
+import org.example.model.Employee;
 import org.example.util.HibernateUtil;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,20 +10,27 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class AccountDaoImpl implements AccountDao{   //create
     private Logger logger = LoggerFactory.getLogger(getClass());
+    @Autowired
+    EmployeeDao employeeDao;
+
     @Override
-    public Account save(Account account) {
+    public Account save(Account account,Long id) {
         Transaction transaction = null; // 1.hibernate declare transaction
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session =sessionFactory.openSession();
 //      Session session =HibernateUtil.getSessionFactory().openSession(); //same as line 16+17
         try{
             transaction = session.beginTransaction(); //2. hibernate declare transaction
+            Employee employee = employeeDao.getBy(id);
+            account.setEmployee(employee);
             session.save(account);
             transaction.commit();  //3. hibernate commit transaction
             session.close();
@@ -49,18 +56,30 @@ public class AccountDaoImpl implements AccountDao{   //create
         try {
             Query query = s.createQuery(hql);  // create query object
             result = query.list();   //list query object and put it into result
-            s.close();    //session need to be closed
         }catch (HibernateException e){
             logger.error("session close exception try again...",e);
-            s.close();
+        }finally {
+            s.close();    //session need to be closed
         }
         return result;
     }
 
     @Override
-    public Account getBy(Long id){   //update
-        return null;
-    }
+    public Account getBy(Long id) {
+        String hql = "FROM Account a where a.id=:Id";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Query<Account> query = session.createQuery(hql);
+            query.setParameter("Id", id);
+            Account result = query.uniqueResult();
+            session.close();
+            return result;
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
+            session.close();
+              return null;
+        }
+   }
 
     @Override
     public boolean delete(Account account) {    //delete

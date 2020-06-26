@@ -1,32 +1,41 @@
 package org.example.repository;
+import org.example.ApplicationBootstrap;
 import org.example.model.Account;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.math.BigDecimal;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ApplicationBootstrap.class)
+
 public class AccountDaoTest {
+    @Autowired
     private AccountDao accountDao;
+
+//    private AccountDao accountDao = new AccountDaoImpl();
     private Account a1;
+    private String accountString ="saving account";
 
 
 
     @Before   //save
     public void setUp(){
-        //logic 1 save record in one side
-        accountDao = new AccountDaoImpl();
-        a1 = new Account();
-        a1.setAccountType("saving account");
-        a1.setBalance(BigDecimal.valueOf(1000));
 
-        //User u = "12341"
-        a1= accountDao.save(a1);
+        accountDao = new AccountDaoImpl();
+            a1 = new Account();
+            a1.setAccountType(accountString);
+            a1.setBalance("1000.00");
+            accountDao.save(a1,Long.valueOf(1));
     }
     @After     //delete
     public void tearDown() {
+//        accountDao.delete(testObject);
         accountDao.delete(a1);
     }
 

@@ -10,7 +10,7 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id")
-    private long Id;   //id
+    private long id;   //id
     @Column(name = "name")
     private String name;
     @Column (name = "description")
@@ -18,11 +18,11 @@ public class Department {
     @Column (name = "location")
     private String location;
 
-    @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private Set<Employee> employees;
 
     public void setId(long id){
-        this.Id = id;
+        this.id = id;
     }
     public void setName(String name){
         this.name = name;
@@ -37,7 +37,7 @@ public class Department {
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
     public String getName() {
         return name;
