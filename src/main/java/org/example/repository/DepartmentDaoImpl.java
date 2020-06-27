@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository //Bean
 public class DepartmentDaoImpl implements DepartmentDao {   //create
     private Logger logger = LoggerFactory.getLogger(getClass());
 
