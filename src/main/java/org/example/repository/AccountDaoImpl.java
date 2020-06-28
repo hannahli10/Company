@@ -15,21 +15,20 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository  //Bean
 public class AccountDaoImpl implements AccountDao{   //create
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     EmployeeDao employeeDao;
 
     @Override
-    public Account save(Account account,Long id) {
+    public Account save(Account account,Employee employee) {
         Transaction transaction = null; // 1.hibernate declare transaction
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session =sessionFactory.openSession();
 //      Session session =HibernateUtil.getSessionFactory().openSession(); //same as line 16+17
         try{
             transaction = session.beginTransaction(); //2. hibernate declare transaction
-            Employee employee = employeeDao.getBy(id);
             account.setEmployee(employee);
             session.save(account);
             transaction.commit();  //3. hibernate commit transaction
@@ -83,7 +82,7 @@ public class AccountDaoImpl implements AccountDao{   //create
 
     @Override
     public boolean delete(Account account) {    //delete
-        String hql = "DELETE Account as account where account.id = :Id";// :Id is placeholder
+        String hql = "DELETE Account as a where a.id = :Id";// :Id is placeholder
         int deletedCount = 0;
         Transaction transaction = null; //1. hibernate declare transaction
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();

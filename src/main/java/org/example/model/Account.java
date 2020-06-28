@@ -2,6 +2,7 @@ package org.example.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 @Entity
 @Table (name ="Accounts")
@@ -16,6 +17,7 @@ public class Account {
     @Column (name = "balance")
     private BigDecimal balance;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee; //employee same as Employee Class mappedBy ="variable"
@@ -26,9 +28,7 @@ public class Account {
     public void setAccountType(String accountType){
         this.accountType = accountType;
     }
-    public void setBalance(BigDecimal balance){
-        this.balance =balance;
-    }
+    public void setBalance(BigDecimal balance){ this.balance =balance; }
     public void setEmployee(Employee employee){ this.employee = employee;}
 
 
@@ -42,11 +42,10 @@ public class Account {
     public BigDecimal getBalance() {
         return balance;
     }
-    public BigDecimal setBalance(String v) {
-        this.balance = balance;
-        return balance;
+//    public BigDecimal setBalance() {
+//        this.balance = balance;
+//        return balance;
 
-    }
 
 }
 
