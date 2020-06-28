@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -25,9 +24,6 @@ public class EmployeeDaoTest {
     @Autowired
     private DepartmentDao departmentDao;
     private String employeeString ="HR1";
-
-//    private EmployeeDao employeeDao = new EmployeeDaoImpl();
-//    private AccountDao accountDao = new AccountDaoImpl();
     private Employee e1;
     private Department d1;
 
@@ -51,9 +47,6 @@ public class EmployeeDaoTest {
         e1.setAddress("US");
         employeeDao.save(e1,d1);
 
-
-
-//deppartment <- employee
     }
     @After     //delete
     public void tearDown() {
@@ -61,17 +54,12 @@ public class EmployeeDaoTest {
         employeeDao.delete(e1);
 //        logic 1 delete record in many owning side
         departmentDao.delete(d1);
-
-
-
-
     }
 
     @Test
     public void getEmployeeTest(){
         List<Employee> employees = employeeDao.getEmployees();
         int expectedNumOfEmployee = 1;
-
 //      Employees.forEach(emol-> System.out.println(emol));
         Assert.assertEquals(expectedNumOfEmployee, employees.size());
     }

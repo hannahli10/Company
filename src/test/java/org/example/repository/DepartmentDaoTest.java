@@ -2,7 +2,6 @@ package org.example.repository;
 
 import org.example.ApplicationBootstrap;
 import org.example.model.Department;
-import org.example.model.Employee;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,10 +18,8 @@ import java.util.List;
 public class DepartmentDaoTest {
     @Autowired
     private DepartmentDao departmentDao;
-
-    private Department d1;
     private String depString = "HR1";
-
+    private Department d1;
 
     @Before   //save
     public void setUp() {
