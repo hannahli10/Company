@@ -29,6 +29,7 @@ public class AccountDaoTest {
     private String accountString ="saving account";
     private Employee e1;
     private Department d1;
+    private BigDecimal accountBalance = new BigDecimal("1000.00");
 
     @Before   //save
     public void setUp(){
@@ -47,7 +48,8 @@ public class AccountDaoTest {
         accountDao = new AccountDaoImpl();
             a1 = new Account();
             a1.setAccountType(accountString);
-            a1.setBalance(new BigDecimal(1000.00));
+//            a1.setBalance(new BigDecimal(1000.00));
+            a1.setBalance(accountBalance);
             accountDao.save(a1,e1);
     }
     @After     //delete
