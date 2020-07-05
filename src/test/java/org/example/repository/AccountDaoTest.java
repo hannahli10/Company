@@ -34,10 +34,11 @@ public class AccountDaoTest {
     @Before   //save
     public void setUp(){
         d1 = new Department();
-//        d1.setName("HR1");
+        d1.setName("A");
 //        d1.setDescription("random description");
 //        d1.setLocation("US");
-     //   departmentDao.save(d1);
+        departmentDao.save(d1);
+
         e1 = new Employee();
         e1.setName("Anni Zhang");
         e1.setFirstName("Anni");
@@ -45,12 +46,13 @@ public class AccountDaoTest {
         e1.setEmail("annizhang@gamil.com");
         e1.setAddress("US");
         employeeDao.save(e1,d1);
+
         accountDao = new AccountDaoImpl();
-            a1 = new Account();
-            a1.setAccountType(accountString);
-//            a1.setBalance(new BigDecimal(1000.00));
-            a1.setBalance(accountBalance);
-            accountDao.save(a1,e1);
+        a1 = new Account();
+        a1.setAccountType(accountString);
+//      a1.setBalance(new BigDecimal(1000.00));
+        a1.setBalance(accountBalance);
+        accountDao.save(a1,e1);
     }
     @After     //delete
     public void tearDown() {
