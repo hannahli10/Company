@@ -21,7 +21,7 @@ public class Department {
     private String location;
 
     @OneToMany(mappedBy = "department",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Employee> employees;
 
     public void setId(long id){

@@ -24,7 +24,7 @@ public class Employee {
     private String address;
 
     @OneToMany(mappedBy = "employee",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
-//    @JsonIgnore
+    @JsonIgnore
     private Set<Account> accounts;
 
     @ManyToOne(fetch = FetchType.LAZY)

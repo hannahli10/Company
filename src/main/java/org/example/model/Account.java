@@ -2,10 +2,10 @@ package org.example.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+
 
 @Entity
-@Table (name ="Accounts")
+@Table (name ="accounts")
 public class Account {
     public Account(){}
     @Id
@@ -42,6 +42,7 @@ public class Account {
     public BigDecimal getBalance() {
         return balance;
     }
+
 //    public BigDecimal setBalance() {
 //        this.balance = balance;
 //        return balance;
