@@ -27,7 +27,11 @@ public class DepartmentService {
         return departmentDao.delete(department);
     }
 
-    public Department getDepartmentEagerBy(Long id){
-        return departmentDao.getDepartmentEagerBy(id);
+    public Department update(Department department) {
+        return departmentDao.update(department);
     }
+
+//    public Department getDepartmentEagerBy(Long id){
+//        return departmentDao.getDepartmentEagerBy(id);
+//    }
 }

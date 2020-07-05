@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.Account;
+import org.example.model.Department;
 import org.example.model.Employee;
 import org.example.repository.AccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,9 @@ public class AccountService {
 
     public boolean delete(Account account){
         return accountDao.delete(account);
+    }
+
+    public Account update(Account account) {
+        return accountDao.update(account);
     }
 }
