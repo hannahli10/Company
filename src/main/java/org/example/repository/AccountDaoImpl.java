@@ -103,4 +103,21 @@ public class AccountDaoImpl implements AccountDao{   //create
         }
         return false;
     }
+
+    @Override
+    public Account update(Account account) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(account);
+            transaction.commit();
+            return account;
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record",e.getMessage());
+            return null;
+        }
+//        if (isSuccess) logger.debug(String.format("The department %s was updated.", department.toString()));
+    }
 }

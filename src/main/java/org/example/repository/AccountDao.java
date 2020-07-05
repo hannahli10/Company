@@ -10,4 +10,5 @@ public interface AccountDao {
     List<Account> getAccounts();//retrieve,read
     Account getBy(Long id);//update
     boolean delete(Account account);  //delete;
+    Account update(Account account);
 }

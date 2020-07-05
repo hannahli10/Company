@@ -8,7 +8,9 @@ public interface DepartmentDao {
     List <Department> getDepartments();//retrieve,read
     Department getBy(Long id);//update
     boolean delete(Department department);//delete
+    Department update(Department department);
     Department getDepartmentEagerBy(Long id);
+
 
 
 }

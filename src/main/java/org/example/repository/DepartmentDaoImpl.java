@@ -2,10 +2,7 @@ package org.example.repository;
 
 import org.example.model.Department;
 import org.example.util.HibernateUtil;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository //Bean
+
 public class DepartmentDaoImpl implements DepartmentDao {   //create
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -22,7 +20,7 @@ public class DepartmentDaoImpl implements DepartmentDao {   //create
         Transaction transaction = null; // 1.hibernate declare transaction
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
-//      Session session =HibernateUtil.getSessionFactory().openSession(); //same as line 16+17
+//      Session session =HibernateUtil.getSessionFactory().openSession(); //same as last two lines
         try {
             transaction = session.beginTransaction(); //2. hibernate declare transaction
             session.save(department);
@@ -34,24 +32,43 @@ public class DepartmentDaoImpl implements DepartmentDao {   //create
             logger.error("failure to insert record", e);
             session.close();
             return null;
-        }
+        }//        if (department!=null) logger.debug(String.format("The department %s was inserted into the table.", department.toString()));
+
         //  SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         //  Session s =sessionFactory.openSession();
         //  s.save(department);
         //  return department;
     }
-    public Department getDepartmentEagerBy(Long id){
-     //  select * from departments as dep left join employees as e on a.employee_id=dep.id where dep.id=:Id
+    @Override
+    public Department update(Department department) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(department);
+            transaction.commit();
+            return department;
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record",e.getMessage());
+            return null;
+        }
+//        if (isSuccess) logger.debug(String.format("The department %s was updated.", department.toString()));
+    }
+
+
+    public Department getDepartmentEagerBy(Long id) {
+        //  select * from departments as dep left join employees as e on a.employee_id=dep.id where dep.id=:Id
         String hql = "FROM Department d LEFT JOIN FETCH d.employees where d.id=:Id";
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Query<Department> query = session.createQuery(hql);
-            query.setParameter("Id",id);
+            query.setParameter("Id", id);
             Department result = query.uniqueResult();
             session.close();
             return result;
-        }catch (HibernateException e){
-            logger.error("failure to retrieve data record",e);
+        } catch (HibernateException e) {
+            logger.error("failure to retrieve data record", e);
             session.close();
             return null;
         }
@@ -92,27 +109,30 @@ public class DepartmentDaoImpl implements DepartmentDao {   //create
         }
     }
 
-        @Override
-        public boolean delete (Department dep){    //delete
-            String hql = "DELETE Department as dep where dep.id = :Id";// :Id is placeholder
-            int deletedCount = 0;
-            Transaction transaction = null; //1. hibernate declare transaction
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            Session session = sessionFactory.openSession();
-            try {
-                transaction = session.beginTransaction(); //2. hibernate declare transaction
-                Query<Department> query = session.createQuery(hql);
-                query.setParameter("Id", dep.getId());
-                deletedCount = query.executeUpdate();
-                transaction.commit();  //3. hibernate commit transaction
-                session.close();
-                return deletedCount >= 1 ? true : false;
 
-            } catch (HibernateException e) {
-                if (transaction != null) transaction.rollback(); //4. hibernate rollback transaction
-                session.close();
-                logger.error("failure to insert record", e);
-            }
-            return false;
+    @Override
+    public boolean delete(Department dep) {    //delete
+        String hql = "DELETE Department as dep where dep.id = :Id";// :Id is placeholder
+        int deletedCount = 0;
+        Transaction transaction = null; //1. hibernate declare transaction
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        try {
+            transaction = session.beginTransaction(); //2. hibernate declare transaction
+            Query<Department> query = session.createQuery(hql);
+            query.setParameter("Id", dep.getId());
+            deletedCount = query.executeUpdate();
+            transaction.commit();  //3. hibernate commit transaction
+            session.close();
+            return deletedCount >= 1 ? true : false;
+
+        } catch (HibernateException e) {
+            if (transaction != null) transaction.rollback(); //4. hibernate rollback transaction
+            session.close();
+            logger.error("failure to insert record", e);
         }
+        return false;
     }
+
+
+}

@@ -10,4 +10,5 @@ public interface EmployeeDao {
     Employee getBy(Long id);//update
     boolean delete(Employee employee);//delete
     Employee getEmployeeEagerBy(Long id);
+    Employee update(Employee employee);
 }

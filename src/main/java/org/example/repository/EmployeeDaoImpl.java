@@ -18,6 +18,7 @@ import java.util.List;
 
 
 @Repository  //Bean
+
 public class EmployeeDaoImpl implements EmployeeDao{   //create
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -62,6 +63,23 @@ public class EmployeeDaoImpl implements EmployeeDao{   //create
             session.close();
             return null;
         }
+    }
+
+    @Override
+    public Employee update(Employee employee) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(employee);
+            transaction.commit();
+            return employee;
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("failure to update record",e.getMessage());
+            return null;
+        }
+//        if (isSuccess) logger.debug(String.format("The department %s was updated.", department.toString()));
     }
 
 
