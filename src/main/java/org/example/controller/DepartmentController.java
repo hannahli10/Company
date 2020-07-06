@@ -27,7 +27,7 @@ public class DepartmentController {
         logger.debug("i am in the department controller get by" + id);
         return departmentService.getBy(id);
     }
-
+   //department/1?name=HR1  PATCH
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Department updateDepartment(@PathVariable("id")Long id,@RequestParam("name")String name){
         Department d = departmentService.getBy(id);
