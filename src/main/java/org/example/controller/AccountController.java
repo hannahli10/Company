@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Account;
+import org.example.model.Department;
 import org.example.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,10 @@ public class AccountController {
         logger.debug("i am in the account controller get by" + id);
         return accountService.getBy(id);
     }
-
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
-    public Account updateAccount(@PathVariable("id")Long id, @RequestParam("AccountType")String AccountType){
+    public Account updateAccount(@PathVariable("id")Long id, @RequestParam("accountType")String accountType){
         Account a = accountService.getBy(id);
-        a.setAccountType(AccountType);
+        a.setAccountType(accountType);
         a = accountService.update(a);
         return a;
     }
