@@ -1,6 +1,5 @@
 package org.example.repository;
 
-import org.example.ApplicationBootstrap;
 import org.example.model.Department;
 import org.example.model.Employee;
 import org.example.util.HibernateUtil;
