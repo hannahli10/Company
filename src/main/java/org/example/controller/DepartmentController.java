@@ -16,23 +16,30 @@ public class DepartmentController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private DepartmentService departmentService;
+    //department    GET
     @RequestMapping(value ="", method = RequestMethod.GET)
     public List<Department> getDepartments(){
-        logger.debug("i am in the account controller");
+        logger.warn("i am in the account controller");
         return departmentService.getDepartments();
     }
     //department/1 GET
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Department getDepartmentById(@PathVariable(name="id") Long id) {
-        logger.debug("i am in the department controller get by" + id);
+        logger.warn("i am in the department controller get by" + id);
         return departmentService.getBy(id);
     }
    //department/1?name=HR1  PATCH
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Department updateDepartment(@PathVariable("id")Long id,@RequestParam("name")String name){
+        logger.warn("i am in the department controller update " + id + name);
         Department d = departmentService.getBy(id);
         d.setName(name);
         d = departmentService.update(d);
         return d;
+    }
+    //department  POST
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public void create (@RequestBody Department newObject) {
+        logger. warn(newObject.toString());
     }
 }

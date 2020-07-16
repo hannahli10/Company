@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.model.Account;
-import org.example.model.Department;
 import org.example.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,8 @@ public class AccountController {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private AccountService accountService;
+
+    //account   Get
     @RequestMapping(value ="", method = RequestMethod.GET)
     public List<Account> getAccounts(){
         logger.debug("i am in the account controller");
@@ -28,12 +29,19 @@ public class AccountController {
         logger.debug("i am in the account controller get by" + id);
         return accountService.getBy(id);
     }
+
+    //account/id?account_type=checking account   PATCH
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Account updateAccount(@PathVariable("id")Long id, @RequestParam("accountType")String accountType){
         Account a = accountService.getBy(id);
         a.setAccountType(accountType);
         a = accountService.update(a);
         return a;
+    }
+    //account  POST
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public void create (@RequestBody Account newObject) {
+        logger. warn(newObject.toString());
     }
 }
 
