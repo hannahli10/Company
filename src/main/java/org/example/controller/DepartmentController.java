@@ -39,7 +39,9 @@ public class DepartmentController {
     }
     //department  POST
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create (@RequestBody Department newObject) {
-        logger. warn(newObject.toString());
+    public Department create (@RequestBody Department newDepartment) {
+        logger.warn(newDepartment.toString());
+        Department department = departmentService.save(newDepartment);
+        return department;
     }
 }
