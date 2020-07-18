@@ -61,7 +61,19 @@ public class UserDaoImpl implements UserDao{   //create
     }
 
     @Override
-    public User getUserCredentials(String email, String password) {
+    public User getUserByCredentials(String email, String password) {
+        String hql = "FROM User as u where lower(u.email) = :email and u.password = :password";
+        logger.warn(String.format("User email: %s, password: %s, email,password"));
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("email",email.toLowerCase().trim());
+            query.setParameter("password",password);
+            return query.uniqueResult();
+        }
+        catch (Exception e){
+            logger.error ("can't find user record or seesion");
+        }
         return null;
     }
 
