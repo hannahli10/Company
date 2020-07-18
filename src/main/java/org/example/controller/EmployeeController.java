@@ -39,8 +39,8 @@ public class EmployeeController {
     }
     //employee POST
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public void create (@RequestBody Employee newObject) {
-        logger. warn(newObject.toString());
+    public void create (@RequestBody Employee newEmployee) {
+        logger. warn(newEmployee.toString());
     }
 }
 
