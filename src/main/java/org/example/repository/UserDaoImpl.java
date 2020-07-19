@@ -72,7 +72,7 @@ public class UserDaoImpl implements UserDao{   //create
             return query.uniqueResult();
         }
         catch (Exception e){
-            logger.error ("can't find user record or seesion");
+            logger.error ("can't find user record or session");
         }
         return null;
     }
