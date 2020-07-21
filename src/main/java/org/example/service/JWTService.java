@@ -39,7 +39,9 @@ public class JWTService {
         return builder.compact();
     }
     public Claims decryptJwtToken(String token){
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                .parseClaimsJws(token).getBody();
         logger.warn("Claims:" + claims.toString());
         return claims;
 
