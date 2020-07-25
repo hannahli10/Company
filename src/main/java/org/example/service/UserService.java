@@ -12,6 +12,7 @@ public class UserService {
     @Autowired private UserDao userDao;
     public User save(User user){return userDao.save(user);};
     public User findById(Integer id){return userDao.findById(id);};
+    public User getById(Long id){return userDao.getById(id);};
     public User getUserByEmail(String email){return userDao.getUserByEmail(email);};
     public User getUserByCredentials(String email,String password){return userDao.getUserByCredentials(email,password);};
     public boolean delete(User u){return userDao.delete(u);};

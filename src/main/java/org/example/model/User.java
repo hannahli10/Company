@@ -1,7 +1,7 @@
 package org.example.model;
 
 //import org.hibernate.mapping.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Set;
 import javax.persistence.*;
@@ -49,7 +49,7 @@ public class User {
 
     public void setId(Long id){this.id = id;}
     public void setName(String name) { this.name = name; }
-    public void setPassword(String password) {this.password = password;}
+    public void setPassword(String password) {this.password = DigestUtils.md5Hex(password.trim());}
     public void setSecretKey(String secretKey) {this .secretKey = secretKey;}
     public void setFirstName(String firstName) {this.firstName = firstName;}
     public void setLastName(String lastName) {this.lastName = lastName;}

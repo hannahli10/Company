@@ -55,6 +55,26 @@ public class UserDaoImpl implements UserDao{   //create
         return null;
         }
     }
+
+    @Override
+    public User getById(Long id) {
+        String hql = "FROM User as u where u.id = :Id";// :Id is placeholder
+        Transaction transaction = null; //1. hibernate declare transaction
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        try {
+            transaction = session.beginTransaction(); //2. hibernate declare transaction
+            org.hibernate.query.Query<User> query = session.createQuery(hql);
+            query.setParameter("Id", id);
+            transaction.commit();  //3. hibernate commit transaction
+            session.close();
+            return query.uniqueResult();
+        }catch (HibernateException e){
+            logger.error("session close exception try again...",e);
+            return null;
+        }
+    }
+
     @Override
     public User getUserByEmail(String email) {
         return null;
@@ -63,7 +83,7 @@ public class UserDaoImpl implements UserDao{   //create
     @Override
     public User getUserByCredentials(String email, String password) {
         String hql = "FROM User as u where lower(u.email) = :email and u.password = :password";
-        logger.warn(String.format("User email: %s, password: %s, email,password"));
+        logger.warn(String.format("User email: %s, password: %s", email,password));
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
             Query<User> query = session.createQuery(hql);
