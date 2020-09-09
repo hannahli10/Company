@@ -18,20 +18,20 @@ public class EmployeeController {
     private EmployeeService employeeService;
     @RequestMapping(value ="", method = RequestMethod.GET)
     public List<Employee> getEmployees(){
-            logger.warn("i am in the account controller");
+            logger.debug("i am in the account controller");
             return employeeService.getEmployees();
         }
         //department/1 GET
      @RequestMapping(value = "/{id}", method = RequestMethod.GET)
      public Employee getByEmployee(@PathVariable(name="id") Long id) {
-        logger.warn("i am in the department controller get by" + id);
+        logger.debug("i am in the department controller get by" + id);
         return employeeService.getBy(id);
     }
 
         //employee/1?name=HR1   PATCH
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Employee updateEmployee(@PathVariable("id")Long id,@RequestParam("name")String name){
-        logger.warn("i am in the employee controller update " + id + name);
+        logger.debug("i am in the employee controller update " + id + name);
         Employee e = employeeService.getBy(id);
         e.setName(name);
         e = employeeService.update(e);
@@ -40,7 +40,7 @@ public class EmployeeController {
     //employee POST
     @RequestMapping(value = "", method = RequestMethod.POST)
     public void create (@RequestBody Employee newEmployee) {
-        logger. warn(newEmployee.toString());
+        logger.debug(newEmployee.toString());
     }
 }
 

@@ -31,7 +31,7 @@ public class DepartmentController {
    //department/1?name=HR1  PATCH
     @RequestMapping(value = "/{id}",method = RequestMethod.PATCH)
     public Department updateDepartment(@PathVariable("id")Long id,@RequestParam("name")String name){
-        logger.warn("i am in the department controller update " + id + name);
+        logger.debug("i am in the department controller update " + id + name);
         Department d = departmentService.getBy(id);
         d.setName(name);
         d = departmentService.update(d);
@@ -40,7 +40,7 @@ public class DepartmentController {
     //department  POST
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Department create (@RequestBody Department newDepartment) {
-        logger.warn(newDepartment.toString());
+        logger.debug(newDepartment.toString());
         Department department = departmentService.save(newDepartment);
         return department;
     }
