@@ -41,18 +41,17 @@ public class RoleDaoImpl implements RoleDao{   //create
     }
 
     @Override
-    public Role findById(Integer id) {
+    public Role getById(Long id) {
         String hql = "FROM Role as r where r.id = :Id";// :Id is placeholder
-        Transaction transaction = null; //1. hibernate declare transaction
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
         try {
-            transaction = session.beginTransaction(); //2. hibernate declare transaction
             org.hibernate.query.Query<Role> query = session.createQuery(hql);
             query.setParameter("Id", id);
-            transaction.commit();  //3. hibernate commit transaction
+            Role result = query.uniqueResult();
             session.close();
-            return query.uniqueResult();
+            return result;
+
         }catch (HibernateException e){
             logger.error("session close exception try again...",e);
             return null;
