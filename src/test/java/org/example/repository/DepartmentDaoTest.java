@@ -43,17 +43,24 @@ public class DepartmentDaoTest {
     public void getDepartmentsTest() {
         List<Department> departments = departmentDao.getDepartments();
         int expectedNumOfDept = 5;
-
 //        departments.forEach(dept -> System.out.println(dept));
         Assert.assertEquals(expectedNumOfDept, departments.size());
     }
+    @Test
+    public void getDepartmentByIdTest(){
+        Long deptId = Long.valueOf(1);
+        Department department = departmentDao.getBy(deptId);
+        Assert.assertEquals(deptId,department.getId());
+
+    }
+
 
 //    @Test
 //    public void getDepartmentEagerByTest(){
 //        logger.debug("Start unit test for getCustomerEagerByTest...");
 //        Department department = departmentDao.getDepartmentEagerBy(d1.getId());
-//        assertNotNull(department);
-//        assertEquals(department.getName(),d1.getName());
-//        assertTrue(department.getEmployees().size()>0);
+//        Assert.assertNotNull(department);
+//        Assert.assertEquals(department.getName(),d1.getName());
+//        Assert.assertTrue(department.getEmployees().size()>0);
 //    }
 }
