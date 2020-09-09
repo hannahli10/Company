@@ -31,7 +31,7 @@ public class DepartmentService {
         return departmentDao.update(department);
     }
 
-//    public Department getDepartmentEagerBy(Long id){
-//        return departmentDao.getDepartmentEagerBy(id);
-//    }
+    public Department getDepartmentEagerBy(Long id){
+        return departmentDao.getDepartmentEagerBy(id);
+    }
 }

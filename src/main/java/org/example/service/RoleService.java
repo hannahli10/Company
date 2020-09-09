@@ -12,7 +12,7 @@ public class RoleService {
     @Autowired
     private RoleDao roleDao;
     public Role save(Role role){return roleDao.save(role);};
-    public Role findById(Integer id){return roleDao.findById(id);};
+    public Role getById(Long id){return roleDao.getById(id);};
     public Role getRoleByName(String name){return roleDao.getRoleByName(name);};
     public boolean delete(Role r){return roleDao.delete(r);};
 
